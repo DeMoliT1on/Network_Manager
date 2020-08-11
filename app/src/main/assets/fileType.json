@@ -1,0 +1,22 @@
+{
+
+  ".3ga": 1, ".aa": 1, ".aac": 1, ".aax": 1, ".aiff": 1, ".alac": 1, ".amr": 1, ".au": 1, ".dts": 1,
+  ".dtshd": 1, ".flac": 1, ".gsm": 1, ".m2a":1, ".m3a":1, ".m4a": 1, ".m4b": 1, ".mp3": 1, ".mka": 1,
+  ".mid": 1, ".midi": 1, ".nsf": 1, ".ogg": 1, ".oga": 1, ".mogg": 1, ".opus": 1, ".ra": 1, ".rm": 1,
+  ".raw": 1, ".wav": 1, ".wma": 1, ".weba": 1,
+
+  ".3gp": 2, ".amv":2, ".avi":2, ".f4a":2, ".f4b":2, ".f4v":2, ".flv":2, ".m3u8":2, ".m4v":2, ".m2v":2,
+  ".mp4":2, ".mpeg":2, ".mpv":2, ".mov":2, ".mkv":2, ".ogv":2, ".vob":2, ".webm":2, ".wmv":2,
+
+  ".odg":3, ".otg": 3, ".odi": 3, ".sda": 3, ".sxd": 3, ".std": 3, ".bmp": 3, ".gif": 3, ".jpeg": 3,
+  ".jpg": 3, ".pjpeg": 3, ".png": 3, ".svg": 3, ".tiff": 3, ".psd": 3, ".ai": 3, ".webp": 3, ".pic": 3,
+  ".ico": 3,
+
+  ".txt": 4, ".def": 4, ".ini": 4, ".log": 4, ".pl": 4, ".json": 4, ".cfg": 4, ".dat": 4, ".srt": 4,
+  ".ide": 4,
+
+  ".rdf": 5, ".rss": 5, ".xml": 5, ".xhtml": 5, ".css": 5, ".html": 5, ".cpp": 5, ".c": 5, ".cs": 5,
+  ".java": 5, ".p": 5, ".js": 5, ".py": 5, ".kt": 5, ".rb": 5, ".php": 5, ".sh": 5,
+
+  ".apk": 6
+}

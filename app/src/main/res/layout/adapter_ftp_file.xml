@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:padding="8dp"
+    android:background="@drawable/list_selector"
+    android:animateLayoutChanges="true">
+    <ImageView
+        android:id="@+id/fileIcon"
+        android:src="@drawable/fsn_folder"
+        android:layout_marginRight="15dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+    <ImageView
+        android:id="@+id/fileCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_check"
+        android:layout_alignEnd="@+id/fileIcon"
+        android:layout_alignBottom="@+id/fileIcon"/>
+    <TextView
+        android:id="@+id/fileName"
+        android:text="File name"
+        android:textStyle="bold"
+        android:textColor="?android:textColorPrimary"
+        android:ellipsize = "middle"
+        android:singleLine = "true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/fileIcon"/>
+    <TextView
+        android:id="@+id/itemSize"
+        android:text="99.99MB"
+        android:layout_marginTop="10dp"
+        android:layout_alignRight="@+id/dateModified"
+        android:layout_below="@+id/fileName"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/dateModified"
+        android:text="Last modified"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/fileIcon"
+        android:layout_below="@id/fileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+</RelativeLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="Statistics">
+        <menu>
+            <item
+                android:id="@+id/nav_chart"
+                android:icon="@drawable/ic_chart"
+                android:title="Detailed chart" />
+            <item
+                android:id="@+id/nav_usage"
+                android:icon="@drawable/ic_data_usage"
+                android:title="App wise usage" />
+        </menu>
+    </item>
+    <item android:title="Network">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_share"
+                android:title="FTP sharing" />
+            <item
+                android:id="@+id/nav_ftp"
+                android:icon="@drawable/ic_ftp"
+                android:title="FTP servers" />
+            <item
+                android:id="@+id/nav_download"
+                android:icon="@drawable/ic_download"
+                android:title="Download Manager" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/nav_prefs"
+        android:icon="@drawable/ic_prefs"
+        android:title="Settings" />
+</menu>

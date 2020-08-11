@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        android:title="Appearance">
+        <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            app:key="night"
+            android:defaultValue="false"
+            android:title="Dark mode"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        android:title="Notification Service">
+        <MultiSelectListPreference
+            app:iconSpaceReserved="false"
+            app:key="alertContents"
+            android:title="Notification contents"
+            android:entries="@array/alertContents"
+            android:entryValues="@array/alertContentValues"/>
+    </PreferenceCategory>
+</PreferenceScreen>

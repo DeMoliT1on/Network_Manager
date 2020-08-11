@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+    <ImageView
+        android:id="@+id/appIcon"
+        android:src="@mipmap/ic_launcher_round"
+        android:layout_marginRight="20dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+    <TextView
+        android:id="@+id/appName"
+        android:text="App Name"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/appIcon"/>
+    <TextView
+        android:id="@+id/dataUsage"
+        android:text="99.99MB"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <ProgressBar
+        android:id="@+id/dataBar"
+        style="@style/MyProgressBar"
+        android:theme="@style/MyProgressBar"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/appIcon"
+        android:layout_below="@id/appName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:progress="0"
+        android:secondaryProgress="0"
+        />
+</RelativeLayout>
