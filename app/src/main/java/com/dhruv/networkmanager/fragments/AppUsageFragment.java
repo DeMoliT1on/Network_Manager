@@ -271,7 +271,7 @@ public class AppUsageFragment extends Fragment implements OnPackageListListener,
     @Override
     public void onClick(View v) {
         if (v == datePicker) {
-            DialogFragment datePicker = new DatePickerDialog(this, position, calendar);
+            DialogFragment datePicker = new DatePickerDialog(this, position, Calendar.getInstance());
             datePicker.show(getActivity().getSupportFragmentManager(), "Date picker");
         } else if (v == mobileUsage) {
             if (currentMode == BOTH || currentMode == MOBILE) {
