@@ -78,21 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
         checkAndRequestPermissions();
 
-        temp();
     }
 
-    private void temp(){
-        ImageView qrCode=findViewById(R.id.tmp);
-        String temp="ftp://192.168.29.131";
-        MultiFormatWriter multiFormatWriter=new MultiFormatWriter();
-        try {
-            BitMatrix bitMatrix=multiFormatWriter.encode(temp, BarcodeFormat.QR_CODE,200,200);
-            Bitmap bitmap=BarcodeEncoder.createBitmap(bitMatrix);
-            qrCode.setImageBitmap(bitmap);
-        }catch (Exception e){
-
-        }
-    }
 
     private void initDialogs() {
         requestDialog = new AlertDialog.Builder(this)

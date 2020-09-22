@@ -2,6 +2,7 @@ package com.dhruv.networkmanager.fragments;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -22,6 +23,8 @@ import com.dhruv.networkmanager.asynchronous.PackageAsyncTask;
 import com.dhruv.networkmanager.utils.DatePickerDialog;
 import com.dhruv.networkmanager.utils.UnitOfMeasurement;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -107,7 +110,8 @@ public class AppUsageFragment extends Fragment implements OnPackageListListener,
     public void onResume() {
         super.onResume();
         if(list==null){
-            new PackageAsyncTask(0, System.currentTimeMillis(), getActivity(), this).execute();
+            getData();
+
         }
         else{
             setAdapter();
@@ -122,6 +126,19 @@ public class AppUsageFragment extends Fragment implements OnPackageListListener,
         setAdapter();
 
         separateList();
+    }
+
+    private void getData() {
+        switch (position) {
+            case 0:
+                onDateSet(null, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                break;
+            case 1:
+                onMonthSet(calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR));
+                break;
+            case 2:
+                onYearSet(calendar.get(Calendar.YEAR));
+        }
     }
 
     private void setAdapter(){
@@ -220,17 +237,35 @@ public class AppUsageFragment extends Fragment implements OnPackageListListener,
         startTime=calendar.getTimeInMillis();
         new PackageAsyncTask(startTime, endTime, getActivity(), this).execute();
         changeCurrentMode(BOTH);
-        dateView.setText(calendar.getTime().toString());
+        dateView.setText(new SimpleDateFormat("MMM dd, yyyy").format(calendar.getTime()));
     }
 
     @Override
     public void onMonthSet(int month, int year) {
-
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.add(Calendar.MONTH, 1);
+        endTime = calendar.getTimeInMillis();
+        calendar.add(Calendar.MONTH, -1);
+        startTime = calendar.getTimeInMillis();
+        new PackageAsyncTask(startTime, endTime, getActivity(), this).execute();
+        changeCurrentMode(BOTH);
+        dateView.setText(new SimpleDateFormat("MMM yyyy").format(calendar.getTime()));
     }
 
     @Override
     public void onYearSet(int year) {
-
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, 1);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.add(Calendar.YEAR, 1);
+        endTime = calendar.getTimeInMillis();
+        calendar.add(Calendar.YEAR, -1);
+        startTime = calendar.getTimeInMillis();
+        new PackageAsyncTask(startTime, endTime, getActivity(), this).execute();
+        changeCurrentMode(BOTH);
+        dateView.setText(new SimpleDateFormat("yyyy").format(calendar.getTime()));
     }
 
     @Override

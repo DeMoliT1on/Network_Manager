@@ -23,12 +23,6 @@
             app:titleTextColor="@color/white"
             android:elevation="4dp"/>
 
-        <ImageView
-            android:id="@+id/tmp"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:translationY="200dp"
-            android:layout_gravity="center"/>
     </LinearLayout>
 
 

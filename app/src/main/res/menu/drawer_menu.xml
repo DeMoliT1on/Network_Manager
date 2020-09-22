@@ -5,10 +5,10 @@
 
     <item android:title="Statistics">
         <menu>
-            <item
+            <!--item
                 android:id="@+id/nav_chart"
                 android:icon="@drawable/ic_chart"
-                android:title="Detailed chart" />
+                android:title="Detailed chart" / -->
             <item
                 android:id="@+id/nav_usage"
                 android:icon="@drawable/ic_data_usage"
@@ -25,10 +25,10 @@
                 android:id="@+id/nav_ftp"
                 android:icon="@drawable/ic_ftp"
                 android:title="FTP servers" />
-            <item
+            <!--item
                 android:id="@+id/nav_download"
                 android:icon="@drawable/ic_download"
-                android:title="Download Manager" />
+                android:title="Download Manager" /-->
         </menu>
     </item>
     <item
