@@ -15,24 +15,30 @@ import androidx.preference.PreferenceManager;
 
 
 import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.ActivityManager;
+import android.app.AppOpsManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TableLayout;
+import android.widget.Toast;
 
 import com.dhruv.networkmanager.asynchronous.InitialDatabaseTask;
 import com.dhruv.networkmanager.R;
-import com.dhruv.networkmanager.utils.BarcodeEncoder;
+import com.dhruv.networkmanager.utils.NotificationService;
 import com.google.android.material.navigation.NavigationView;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.common.BitMatrix;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mainActivityDrawerLayout;
     private NavigationView mainActivityNavigationView;
     private Toolbar mainActivityToolbar;
+    private Switch indicatorSwitch;
     private static final int REQUEST_CODE = 15;
     private static final int PREFERENCE_CODE=28;
     private AlertDialog requestDialog;
@@ -75,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         setUpDrawer();
 
         initDialogs();
+
+        initSwitch();
 
         checkAndRequestPermissions();
 
@@ -119,6 +128,42 @@ public class MainActivity extends AppCompatActivity {
         infoDialog.setCanceledOnTouchOutside(false);
     }
 
+    private void initSwitch() {
+        indicatorSwitch = (Switch) findViewById(R.id.indicatorSwitch);
+
+        indicatorSwitch.setChecked(isServiceRunning());
+
+        indicatorSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            Intent intent = new Intent(getApplicationContext(), NotificationService.class);
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    startService(intent);
+                } else {
+                    stopService(intent);
+                }
+
+            }
+
+        });
+    }
+
+    private boolean isServiceRunning() {
+        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+
+        List<ActivityManager.RunningServiceInfo> runningServices = activityManager.getRunningServices(Integer.MAX_VALUE);
+
+        for (ActivityManager.RunningServiceInfo runningServiceInfo : runningServices) {
+
+            if (runningServiceInfo.service.getClassName().equals(NotificationService.class.getName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public void setUpDrawer() {
 
@@ -143,6 +188,10 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(MainActivity.this, AppUsage.class);
                         startActivity(intent);
                         return true;
+                    case R.id.nav_share:
+                        intent = new Intent(MainActivity.this, FTPSharing.class);
+                        startActivityForResult(intent, PREFERENCE_CODE);
+                        return true;
                     case R.id.nav_ftp:
                         intent = new Intent(MainActivity.this, FTPServer.class);
                         startActivity(intent);
@@ -151,6 +200,8 @@ public class MainActivity extends AppCompatActivity {
                         intent=new Intent(MainActivity.this,Preferences.class);
                         startActivityForResult(intent,PREFERENCE_CODE);
                         return true;
+
+
                 }
 
                 return true;
@@ -173,10 +224,42 @@ public class MainActivity extends AppCompatActivity {
                 + ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 + ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED;
     }
+
     private void checkAndRequestPermissions() {
         if (checkPermissions()) {
             requestPermissions();
         }
+        if (!hasPermissionToReadNetworkHistory()) {
+            requestReadNetworkHistoryAccess();
+        }
+    }
+
+    private boolean hasPermissionToReadNetworkHistory() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        final AppOpsManager appOps = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
+        int mode = appOps != null ? appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                android.os.Process.myUid(), getPackageName()) : 0;
+        if (mode == AppOpsManager.MODE_ALLOWED) {
+            return true;
+        }
+        appOps.startWatchingMode(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                getApplicationContext().getPackageName(),
+                new AppOpsManager.OnOpChangedListener() {
+                    @Override
+                    @TargetApi(Build.VERSION_CODES.M)
+                    public void onOpChanged(String op, String packageName) {
+                        int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                                android.os.Process.myUid(), getPackageName());
+                        if (mode != AppOpsManager.MODE_ALLOWED) {
+                            return;
+                        }
+                        appOps.stopWatchingMode(this);
+                    }
+                });
+
+        return false;
     }
 
     private void requestPermissions() {
@@ -227,5 +310,10 @@ public class MainActivity extends AppCompatActivity {
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
         }
+    }
+
+    private void requestReadNetworkHistoryAccess() {
+        Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+        startActivity(intent);
     }
 }

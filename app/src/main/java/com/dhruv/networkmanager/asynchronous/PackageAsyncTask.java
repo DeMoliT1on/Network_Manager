@@ -156,7 +156,8 @@ public class PackageAsyncTask extends AsyncTask<Void, Void, List<Package>> {
                 if (packageName != null) {
                     packageName=packageName.split(":")[0];
                     name = getName(packageName);
-                    item.setName(name);
+
+                    item.setName("" + uid);
                     item.setIcon(getIcon(packageName));
                     toAdd.add(new ListItem(uid, packageName, name));
                 }

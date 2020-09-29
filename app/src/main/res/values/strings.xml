@@ -8,6 +8,14 @@
     <string name="tab_2">Month</string>
     <string name="tab_3">Year</string>
 
+    <string name="Bps">B/s</string>
+    <string name="KBps">KB/s</string>
+    <string name="MBps">MB/s</string>
+
+
+    <string name="start_btn">Start Server</string>
+    <string name="stop_btn">Stop server</string>
+
     <string name="loading_dialog">Please wait...\n This is an one time process</string>
     <string name="msg">Trying to connect to server</string>
     <string name="short_label">App Info</string>
@@ -18,6 +26,8 @@
     <string name="permission">The app requires certain permissions for its functionality.\n1.Storage permissions for downloads and uploads\n2.Phone permissions for subscriber details\n(This app does not manage or place calls)</string>
 
     <string name="permission_denied">You have denied required permissions. Grant all permissions to continue.</string>
+    <string name="enable_service">Enable Service</string>
+    <string name="disable_service">Disable Service</string>
 
     <string-array name="alertContents">
         <item>Mobile Usage</item>
