@@ -76,7 +76,7 @@ final class NotificationGenerator {
         contentView.setTextViewText(
                 R.id.notificationText,
                 String.format(
-                        Locale.ENGLISH, "Mobile Data: " + used.used + used.usedUnit
+                        Locale.ENGLISH, "Mobile Data: " + used.mobileUsed + used.mobileUsedUnit +" Wifi Data: " + used.wifiUsed + used.wifiUsedUnit
                 )
         );
 

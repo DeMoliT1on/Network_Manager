@@ -62,6 +62,19 @@ public class NetworkStatsHelper {
         return bucket.getTxBytes();
     }
 
+    public long getAllBytesWifi(long start, long end) {
+        NetworkStats.Bucket bucket;
+        try {
+            bucket = networkStatsManager.querySummaryForDevice(ConnectivityManager.TYPE_WIFI,
+                    "",
+                    start,
+                    end);
+        } catch (RemoteException e) {
+            return -1;
+        }
+        return bucket.getRxBytes() + bucket.getTxBytes();
+    }
+
     public long getAllRxBytesWifi() {
         NetworkStats.Bucket bucket;
         try {
