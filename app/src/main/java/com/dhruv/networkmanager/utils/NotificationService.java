@@ -26,6 +26,7 @@ public class NotificationService extends Service {
     private long usedBytes = 0;
     private long usedTime = 0;
     private long mobileUsedBytes = 0;
+    private long wifiUsedBytes = 0;
     private Speed speed;
     private Used used;
     private NotificationGenerator notificationGenerator;
@@ -75,7 +76,11 @@ public class NotificationService extends Service {
 
             mobileUsedBytes = networkStatsHelper.getAllRxBytesMobile(getApplicationContext(), cal.getTimeInMillis(), System.currentTimeMillis()) + networkStatsHelper.getAllTxBytesMobile(getApplicationContext(), cal.getTimeInMillis(), System.currentTimeMillis());
 
-            used.calcUsed(mobileUsedBytes);
+            wifiUsedBytes = networkStatsHelper.getAllBytesWifi(cal.getTimeInMillis(), System.currentTimeMillis());
+
+            used.calcUsed(mobileUsedBytes, 0);
+
+            used.calcUsed(wifiUsedBytes, 1);
 
             notificationGenerator.updateNotification(speed, used);
 
