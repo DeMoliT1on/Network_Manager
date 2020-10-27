@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-implementation 'com.google.zxing:core:3.4.0'
 
 android {
     compileSdkVersion 29
@@ -7,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.dhruv.networkmanager"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
