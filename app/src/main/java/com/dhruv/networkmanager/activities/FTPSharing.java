@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -22,7 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dhruv.networkmanager.R;
+import com.dhruv.networkmanager.utils.BarcodeEncoder;
 import com.dhruv.networkmanager.utils.FTPService;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,6 +48,7 @@ public class FTPSharing extends AppCompatActivity implements View.OnClickListene
     TextView ipAddress;
     TextView networkType;
     TextView url;
+    ImageView qrCode;
 
     boolean isRunning;
     boolean wifi = false;
@@ -67,6 +73,7 @@ public class FTPSharing extends AppCompatActivity implements View.OnClickListene
         ipAddress = findViewById(R.id.ipAddress);
         networkType = findViewById(R.id.networkType);
         url = findViewById(R.id.url);
+        qrCode = findViewById(R.id.qrCode);
         toggle.setOnClickListener(this);
     }
 
@@ -205,6 +212,14 @@ public class FTPSharing extends AppCompatActivity implements View.OnClickListene
         ipAddress.setText(ip);
         URL = "ftp://" + ip + ":2121";
         url.setText(URL);
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        try {
+            BitMatrix bitMatrix = multiFormatWriter.encode(URL, BarcodeFormat.QR_CODE, 200, 200);
+            Bitmap bitmap = BarcodeEncoder.createBitmap(bitMatrix);
+            qrCode.setImageBitmap(bitmap);
+        } catch (Exception e) {
+
+        }
         networkType.setText(wifi ? "Wifi" : "Wifi AP");
         toggle.setEnabled(true);
     }

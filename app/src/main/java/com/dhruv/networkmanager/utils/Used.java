@@ -4,8 +4,10 @@ import android.content.Context;
 
 public class Used {
 
-    public String used;
-    public String usedUnit;
+    public String mobileUsed;
+    public String mobileUsedUnit;
+    public String wifiUsed;
+    public String wifiUsedUnit;
 
     private Context context;
 
@@ -13,25 +15,46 @@ public class Used {
         this.context = context;
     }
 
-    public void calcUsed(long usedBytes) {
+    public void calcUsed(long usedBytes, int pos) {
         double value;
-        if (usedBytes > Math.pow(2, 30)) {
-            value = (double) (usedBytes) / (Math.pow(2, 30));
-            used = String.format("%.2f", value);
-            usedUnit = "GiB";
-        } else if (usedBytes > Math.pow(2, 20)) {
-            value = (double) (usedBytes) / (Math.pow(2, 20));
-            used = String.format("%.2f", value);
-            usedUnit = "MiB";
-        } else if (usedBytes > Math.pow(2, 10)) {
-            value = (double) (usedBytes) / (Math.pow(2, 10));
-            used = String.format("%.2f", value);
-            usedUnit = "KiB";
+        if (pos == 0) {
+            if (usedBytes > Math.pow(2, 30)) {
+                value = (double) (usedBytes) / (Math.pow(2, 30));
+                mobileUsed = String.format("%.2f", value);
+                mobileUsedUnit = "GiB";
+            } else if (usedBytes > Math.pow(2, 20)) {
+                value = (double) (usedBytes) / (Math.pow(2, 20));
+                mobileUsed = String.format("%.2f", value);
+                mobileUsedUnit = "MiB";
+            } else if (usedBytes > Math.pow(2, 10)) {
+                value = (double) (usedBytes) / (Math.pow(2, 10));
+                mobileUsed = String.format("%.2f", value);
+                mobileUsedUnit = "KiB";
+            } else {
+                value = usedBytes;
+                mobileUsed = Double.toString(value);
+                mobileUsedUnit = "B";
+            }
         } else {
-            value = usedBytes;
-            used = Double.toString(value);
-            usedUnit = "B";
+            if (usedBytes > Math.pow(2, 30)) {
+                value = (double) (usedBytes) / (Math.pow(2, 30));
+                wifiUsed = String.format("%.2f", value);
+                wifiUsedUnit = "GiB";
+            } else if (usedBytes > Math.pow(2, 20)) {
+                value = (double) (usedBytes) / (Math.pow(2, 20));
+                wifiUsed = String.format("%.2f", value);
+                wifiUsedUnit = "MiB";
+            } else if (usedBytes > Math.pow(2, 10)) {
+                value = (double) (usedBytes) / (Math.pow(2, 10));
+                wifiUsed = String.format("%.2f", value);
+                wifiUsedUnit = "KiB";
+            } else {
+                value = usedBytes;
+                wifiUsed = Double.toString(value);
+                wifiUsedUnit = "B";
+            }
         }
+
     }
 
 }

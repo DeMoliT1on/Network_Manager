@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+implementation 'com.google.zxing:core:3.4.0'
 
 android {
     compileSdkVersion 29

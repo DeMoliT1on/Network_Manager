@@ -108,8 +108,7 @@ public class PackageAsyncTask extends AsyncTask<Void, Void, List<Package>> {
 
 
     @Override
-    protected List<Package> doInBackground(Void... voids) {
-        if (isCancelled())
+    protected List<Package> doInBackground(Void... voids) {if (isCancelled())
             return null;
 
         getList();
@@ -153,11 +152,29 @@ public class PackageAsyncTask extends AsyncTask<Void, Void, List<Package>> {
             if (listItem == null) {
                 String packageName = pm.getNameForUid(uid);
                 String name;
-                if (packageName != null) {
-                    packageName=packageName.split(":")[0];
-                    name = getName(packageName);
+                if (packageName == null) {
+                    switch (uid) {
+                        case NetworkStats.Bucket.UID_REMOVED:
+                            item.setName("Removed apps");
+                            item.setIcon(mContext.getDrawable(R.drawable.ic_default));
+                            break;
+                        case NetworkStats.Bucket.UID_TETHERING:
+                            item.setName("Tethering and Hotspot");
+                            item.setIcon(mContext.getDrawable(R.drawable.ic_default));
+                            break;
+                        case 0:
+                            item.setName("System");
+                            item.setIcon(mContext.getDrawable(R.drawable.ic_default));
+                            break;
+                        default:
+                            item.setName("" + uid);
+                            item.setIcon(mContext.getDrawable(R.drawable.ic_default));
 
-                    item.setName("" + uid);
+                    }
+                } else {
+                    packageName = packageName.split(":")[0];
+                    name = getName(packageName);
+                    item.setName(name);
                     item.setIcon(getIcon(packageName));
                     toAdd.add(new ListItem(uid, packageName, name));
                 }
